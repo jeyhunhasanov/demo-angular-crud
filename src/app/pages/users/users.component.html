@@ -1,0 +1,144 @@
+<mat-card>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h1>Users (0)</h1>
+    <button color="primary" mat-raised-button type="button">
+      <mat-icon class="sidenav-icon">person_add</mat-icon>
+      Create user
+    </button>
+  </div>
+  <div class="mt20 mb20">
+    <mat-divider inset></mat-divider>
+  </div>
+
+  <form>
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Email</mat-label>
+          <input [errorStateMatcher]="matcher" [formControl]="emailFormControl" matInput
+                 placeholder="Ex. pat@example.com"
+                 type="email">
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Email</mat-label>
+          <input [errorStateMatcher]="matcher" [formControl]="emailFormControl" matInput
+                 placeholder="Ex. pat@example.com"
+                 type="email">
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+        <div class="mb10">Gender</div>
+        <mat-radio-group [formControl]="radioLabelControl" color="primary">
+          <mat-radio-button class="mr15 mb10" value="">All</mat-radio-button>
+          <mat-radio-button class="mr15 mb10" value="male">Male</mat-radio-button>
+          <mat-radio-button value="female">Female</mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="radioLabelControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </div>
+
+      <div fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="100%">
+        <div class="mb10">Status</div>
+        <mat-radio-group [formControl]="radioLabelControl" color="primary">
+          <mat-radio-button class="mr15 mb10" value="">All</mat-radio-button>
+          <mat-radio-button class="mr15 mb10" value="active">Active</mat-radio-button>
+          <mat-radio-button value="inactive">Inactive</mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="radioLabelControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </div>
+    </div>
+    <div>
+      <button color="primary" mat-raised-button type="button">
+        <mat-icon>search</mat-icon>
+        Search
+      </button>
+      &nbsp; &nbsp;
+      <button class="btn-green" mat-raised-button type="button">
+        <mat-icon>refresh</mat-icon>
+        Reset filter
+      </button>
+    </div>
+  </form>
+
+  <div class="mt20 mb20">
+    <mat-divider inset></mat-divider>
+  </div>
+
+  <table [dataSource]="dataSource" class="w-100" mat-table>
+    <!-- Order number Column -->
+    <ng-container matColumnDef="orderNumber">
+      <th *matHeaderCellDef mat-header-cell> #</th>
+      <td *matCellDef="let element" mat-cell> {{element.orderNumber}} </td>
+    </ng-container>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell> ID</th>
+      <td *matCellDef="let element" mat-cell> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell> Name</th>
+      <td *matCellDef="let element" mat-cell> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th *matHeaderCellDef mat-header-cell> Email</th>
+      <td *matCellDef="let element" mat-cell> {{element.email}} </td>
+    </ng-container>
+
+    <!-- Gender Column -->
+    <ng-container matColumnDef="gender">
+      <th *matHeaderCellDef mat-header-cell> Gender</th>
+      <td *matCellDef="let element" mat-cell> {{element.gender}} </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th *matHeaderCellDef mat-header-cell> Status</th>
+      <td *matCellDef="let element" mat-cell> {{element.status}} </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell> Actions</th>
+      <td *matCellDef="let element" mat-cell>
+        <button mat-icon-button matTooltip="Edit">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button color="warn" mat-icon-button matTooltip="Delete">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  </table>
+
+  <mat-paginator [length]="100" [pageSize]="20" hidePageSize></mat-paginator>
+
+</mat-card>
+
+

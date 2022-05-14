@@ -1,0 +1,11 @@
+<mat-nav-list>
+  <a
+    *ngFor="let routeItem of routes"
+    [routerLinkActive]="'active'"
+    [routerLink]="['/', routeItem.path]"
+    mat-list-item
+  >
+    <mat-icon class="sidenav-icon">{{ routeItem.icon }}</mat-icon>
+    {{ routeItem.text }}
+  </a>
+</mat-nav-list>

@@ -1,0 +1,70 @@
+<form (ngSubmit)="handleSubmitBtnCreateOrUpdate()" [formGroup]="formCreateOrUpdate">
+  <div fxLayout="column" fxLayoutGap="16px grid">
+    <div>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Name</mat-label>
+        <input formControlName="name" matInput placeholder="Name" type="text">
+        <mat-error>
+          Required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput placeholder="Email" type="email">
+        <mat-error *ngIf="email.errors?.['required']">
+          Required.
+        </mat-error>
+        <mat-error *ngIf="email.errors?.['email']">
+          Please enter a valid email address.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <div class="mb10">Gender <span class="color-red">*</span></div>
+      <mat-radio-group color="primary" formControlName="gender">
+        <mat-radio-button class="mr15 mb10" value="male">Male</mat-radio-button>
+        <mat-radio-button value="female">Female</mat-radio-button>
+      </mat-radio-group>
+      <mat-error>
+        <div *ngIf="gender.invalid && (gender.dirty || gender.touched) && gender.errors?.['required']; else elseBlock">
+          Required.
+        </div>
+        <ng-template #elseBlock>&nbsp;</ng-template>
+      </mat-error>
+    </div>
+
+    <div>
+      <div class="mb10">Status <span class="color-red">*</span></div>
+      <mat-radio-group color="primary" formControlName="status">
+        <mat-radio-button class="mr15 mb10" value="active">Active</mat-radio-button>
+        <mat-radio-button value="inactive">Inactive</mat-radio-button>
+      </mat-radio-group>
+      <mat-error>
+        <div *ngIf="status.invalid && (status.dirty || status.touched) && status.errors?.['required']; else elseBlock">
+          Required.
+        </div>
+        <ng-template #elseBlock>&nbsp;</ng-template>
+      </mat-error>
+    </div>
+  </div>
+  <div class="mt20">
+    <button
+      [disabled]="formCreateOrUpdate.invalid"
+      color="primary"
+      mat-raised-button
+      type="submit"
+    >
+      <mat-icon>check</mat-icon>
+      Ok
+    </button>
+    &nbsp; &nbsp;
+    <button (click)="handleClickBtnCancel()" class="btn-green" mat-raised-button type="button">
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+  </div>
+</form>

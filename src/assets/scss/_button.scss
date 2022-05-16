@@ -1,0 +1,11 @@
+@import 'variables';
+
+.btn-green {
+  background: $color-green !important;
+  color: $color-white !important;
+}
+
+button:disabled {
+  background: $btn-disabled-backgroundColor !important;
+  color: $btn-disabled-textColor !important;
+}

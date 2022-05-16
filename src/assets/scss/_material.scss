@@ -1,5 +1,5 @@
-@use '@angular/material' as mat;
-@import '@angular/material/theming';
+@use '../../../node_modules/@angular/material/index' as mat;
+@import '../../../node_modules/@angular/material/theming';
 
 @font-face {
   font-family: 'Fontil Sans';

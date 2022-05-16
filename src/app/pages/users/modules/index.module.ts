@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core'
 
 import {UsersComponent} from '../users.component'
-import {FlexLayoutModule} from '@angular/flex-layout'
+import {FlexLayoutModule, FlexModule} from '@angular/flex-layout'
 import {MatCardModule} from '@angular/material/card'
 import {MatButtonModule} from '@angular/material/button'
 import {MatIconModule} from '@angular/material/icon'
@@ -15,6 +15,9 @@ import {ReactiveFormsModule} from '@angular/forms'
 import {CommonModule} from '@angular/common'
 import {MatRadioModule} from '@angular/material/radio'
 import {MatTooltipModule} from '@angular/material/tooltip'
+
+import {CreateOrUpdateComponent} from '../components/create-or-update/create-or-update.component'
+import {FilterComponent} from '../components/filter/filter.component'
 
 @NgModule({
   imports: [
@@ -40,9 +43,10 @@ import {MatTooltipModule} from '@angular/material/tooltip'
     MatRadioModule,
     MatSortModule,
     MatTableModule,
-    MatTooltipModule
+    MatTooltipModule,
+    FlexModule
   ],
-  declarations: [UsersComponent],
+  declarations: [UsersComponent, CreateOrUpdateComponent, FilterComponent],
   providers: []
 })
 export class UsersModule {}

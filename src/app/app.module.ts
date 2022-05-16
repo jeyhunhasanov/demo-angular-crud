@@ -19,9 +19,14 @@ import {AppComponent} from './app.component'
 import {LayoutComponent} from './layout/layout.component'
 import {TopNavComponent} from './layout/top-nav/top-nav.component'
 import {SideNavComponent} from './layout/side-nav/side-nav.component'
+import {DialogComponent} from './components/dialog/dialog.component'
+import {MatDialogModule} from '@angular/material/dialog'
+import {MatRadioModule} from '@angular/material/radio'
+import {FlexModule} from '@angular/flex-layout'
+import {ReactiveFormsModule} from '@angular/forms'
 
 @NgModule({
-  declarations: [AppComponent, LayoutComponent, TopNavComponent, SideNavComponent],
+  declarations: [AppComponent, LayoutComponent, TopNavComponent, SideNavComponent, DialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -36,9 +41,14 @@ import {SideNavComponent} from './layout/side-nav/side-nav.component'
     MatMenuModule,
     MatListModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatRadioModule,
+    FlexModule,
+    ReactiveFormsModule
   ],
   providers: [],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -13,7 +13,7 @@ export class SideNavComponent implements OnInit {
       text: 'Home'
     },
     {
-      path: 'users',
+      path: '/users',
       icon: 'group',
       text: 'Users'
     }

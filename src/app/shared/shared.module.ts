@@ -25,6 +25,10 @@ import {MatTooltipModule} from '@angular/material/tooltip'
 import {DialogComponent} from '../components/dialog/dialog.component'
 import {TextFieldComponent} from '../components/text-field/text-field.component'
 import {RadioButtonComponent} from '../components/radio-button/radio-button.component'
+// Custom Global Directives
+import {InputCapitalizeDirectiveModule} from '../directives/input-capitalize.directive'
+import {InputLowercaseDirectiveModule} from '../directives/input-lowercase.directive'
+import {InputUppercaseDirectiveModule} from '../directives/input-uppercase.directive'
 
 @NgModule({
   declarations: [DialogComponent, TextFieldComponent, RadioButtonComponent],
@@ -81,7 +85,10 @@ import {RadioButtonComponent} from '../components/radio-button/radio-button.comp
     ReactiveFormsModule,
     DialogComponent,
     TextFieldComponent,
-    RadioButtonComponent
+    RadioButtonComponent,
+    InputCapitalizeDirectiveModule,
+    InputLowercaseDirectiveModule,
+    InputUppercaseDirectiveModule
   ]
 })
 export class SharedModule {}

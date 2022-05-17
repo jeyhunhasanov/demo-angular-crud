@@ -4,6 +4,7 @@
       <app-text-field
         [formGrp]="formData"
         [rules]="name.errors"
+        appInputCapitalizeDirective="every"
         formCtrlNm="name"
         label="Name"
       ></app-text-field>
@@ -13,6 +14,7 @@
       <app-text-field
         [formGrp]="formData"
         [rules]="email.errors"
+        appInputLowercaseDirective
         formCtrlNm="email"
         label="Email"
         type="email"

@@ -1,0 +1,30 @@
+<mat-form-field [appearance]="appearance" [formGroup]="formGrp" class="w-100">
+  <mat-label>{{label}}</mat-label>
+  <input [formControlName]="formCtrlNm" [placeholder]="label" [type]="type" matInput>
+  <mat-error>
+
+    <ng-container *ngIf="!validationRules; else required"></ng-container>
+
+    <ng-template #required>
+      <ng-container *ngIf="validationRules.required; else minlength">
+        Required
+      </ng-container>
+    </ng-template>
+
+    <ng-template #minlength>
+      <ng-container *ngIf="validationRules.minlength; else email">
+        The field must be at least {{validationRules.minlength.requiredLength}} letters
+      </ng-container>
+    </ng-template>
+
+    <ng-template #email>
+      <ng-container *ngIf="validationRules.email; else nothing">
+        Please enter a valid email address.
+      </ng-container>
+    </ng-template>
+
+    <ng-template #nothing></ng-template>
+
+  </mat-error>
+
+</mat-form-field>

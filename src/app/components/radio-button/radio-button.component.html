@@ -1,0 +1,8 @@
+<ng-container [formGroup]="formGrp">
+  <div class="mb10">{{label}}  <span *ngIf="required" class="color-red">*</span></div>
+  <mat-radio-group color="primary" [formControlName]="formCtrlNm">
+    <mat-radio-button *ngFor="let buttonItem of buttons" class="mr15 mb10" [value]="buttonItem.value">
+      {{buttonItem.text}}
+    </mat-radio-button>
+  </mat-radio-group>
+</ng-container>

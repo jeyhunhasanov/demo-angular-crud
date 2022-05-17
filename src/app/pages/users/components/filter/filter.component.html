@@ -1,44 +1,47 @@
-<form (ngSubmit)="handleSubmitBtnSearch()" [formGroup]="formSearch">
+<form (ngSubmit)="handleSubmitBtnSearch()" [formGroup]="formData">
   <div fxLayout="row wrap" fxLayoutGap="16px grid">
     <div fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="100%">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Email</mat-label>
-        <input formControlName="name" matInput placeholder="Name" type="text">
-      </mat-form-field>
+      <app-text-field
+        [formGrp]="formData"
+        formCtrlNm="name"
+        label="Name"
+      ></app-text-field>
     </div>
 
     <div fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="100%">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Name</mat-label>
-        <input formControlName="email" matInput placeholder="Name" type="email">
-      </mat-form-field>
+      <app-text-field
+        [formGrp]="formData"
+        formCtrlNm="email"
+        label="Email"
+        type="email"
+      ></app-text-field>
     </div>
 
     <div fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="100%">
-      <div class="mb10">Gender</div>
-      <mat-radio-group color="primary" formControlName="gender">
-        <mat-radio-button class="mr15 mb10" value="">All</mat-radio-button>
-        <mat-radio-button class="mr15 mb10" value="male">Male</mat-radio-button>
-        <mat-radio-button value="female">Female</mat-radio-button>
-      </mat-radio-group>
+      <app-radio-button
+        [buttons]="buttonsGender"
+        [formGrp]="formData"
+        formCtrlNm="gender"
+        label="Gender"
+      ></app-radio-button>
     </div>
 
     <div fxFlex="25%" fxFlex.sm="50%" fxFlex.xs="100%">
-      <div class="mb10">Status</div>
-      <mat-radio-group color="primary" formControlName="status">
-        <mat-radio-button class="mr15 mb10" value="">All</mat-radio-button>
-        <mat-radio-button class="mr15 mb10" value="active">Active</mat-radio-button>
-        <mat-radio-button value="inactive">Inactive</mat-radio-button>
-      </mat-radio-group>
+      <app-radio-button
+        [buttons]="buttonsStatus"
+        [formGrp]="formData"
+        formCtrlNm="status"
+        label="Status"
+      ></app-radio-button>
     </div>
   </div>
   <div>
-    <button [disabled]="!formSearch.dirty" color="primary" mat-raised-button type="submit">
+    <button [disabled]="!formData.dirty" color="primary" mat-raised-button type="submit">
       <mat-icon>search</mat-icon>
       Search
     </button>
     &nbsp; &nbsp;
-    <button (click)="formSearch.reset()" [disabled]="!formSearch.dirty" class="btn-green" mat-raised-button
+    <button (click)="formData.reset()" [disabled]="!formData.dirty" class="btn-green" mat-raised-button
             type="button">
       <mat-icon>refresh</mat-icon>
       Reset filter

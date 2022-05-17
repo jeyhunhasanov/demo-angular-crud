@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core'
-import {FormControl, FormGroup, Validators} from '@angular/forms'
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog'
 
 @Component({
@@ -8,34 +8,44 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog'
   styleUrls: ['./create-or-update.component.scss']
 })
 export class CreateOrUpdateComponent implements OnInit {
-  formCreateOrUpdate = new FormGroup({
-    name: new FormControl(null, [Validators.required]),
-    email: new FormControl(null, [Validators.required, Validators.email]),
-    gender: new FormControl(null, [Validators.required]),
-    status: new FormControl(null, [Validators.required])
+  constructor(
+    private formBuilder: FormBuilder,
+    public dialogCreateOrUpdateUser: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+
+  formData: FormGroup = this.formBuilder.group({
+    name: [null, [Validators.required, Validators.minLength(3)]],
+    email: [null, [Validators.required, Validators.email]],
+    gender: [null, [Validators.required]],
+    status: [null, [Validators.required]]
   })
 
-  constructor(public dialogCreateOrUpdateUser: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) {}
+  buttonsGender: any = [
+    {
+      text: 'Male',
+      value: 'male'
+    },
+    {
+      text: 'Female',
+      value: 'female'
+    }
+  ]
 
-  get name(): FormControl {
-    return this.formCreateOrUpdate.get('name') as FormControl
-  }
-
-  get email(): FormControl {
-    return this.formCreateOrUpdate.get('email') as FormControl
-  }
-
-  get gender(): FormControl {
-    return this.formCreateOrUpdate.get('gender') as FormControl
-  }
-
-  get status(): FormControl {
-    return this.formCreateOrUpdate.get('status') as FormControl
-  }
+  buttonsStatus: any = [
+    {
+      text: 'Active',
+      value: 'active'
+    },
+    {
+      text: 'Inactive',
+      value: 'inactive'
+    }
+  ]
 
   handleSubmitBtnCreateOrUpdate() {
-    if (this.formCreateOrUpdate.valid) {
-      console.log('Create or update form data: ', this.formCreateOrUpdate.value)
+    if (this.formData.valid) {
+      console.log('Create or update form data: ', this.formData.value)
     }
   }
 
@@ -46,7 +56,23 @@ export class CreateOrUpdateComponent implements OnInit {
   ngOnInit(): void {
     if (this.data.userDetails) {
       const {id, orderNumber, ...userDetails} = this.data.userDetails
-      this.formCreateOrUpdate.setValue(userDetails)
+      this.formData.setValue(userDetails)
     }
+  }
+
+  get name(): FormControl {
+    return this.formData.get('name') as FormControl
+  }
+
+  get email(): FormControl {
+    return this.formData.get('email') as FormControl
+  }
+
+  get gender(): FormControl {
+    return this.formData.get('gender') as FormControl
+  }
+
+  get status(): FormControl {
+    return this.formData.get('status') as FormControl
   }
 }

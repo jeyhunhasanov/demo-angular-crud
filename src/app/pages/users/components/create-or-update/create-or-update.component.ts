@@ -1,12 +1,13 @@
 import {Component, Inject, OnInit} from '@angular/core'
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog'
-import {ACTION_CREATE_USER} from '../../../../store/user/actions'
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog'
+import {ACTION_CREATE_USER, ACTION_UPDATE_USER} from '../../../../store/user/actions'
 import {Store} from '@ngrx/store'
 import {Observable} from 'rxjs'
 import {selectorUsers} from '../../../../store/user'
 import {EnumRequestStatus} from '../../../../enums'
 import {IStateUser} from '../../../../store/user/state'
+import {DialogComponent} from '../../../../components/dialog/dialog.component'
 
 @Component({
   selector: 'app-create-or-update',
@@ -16,7 +17,7 @@ import {IStateUser} from '../../../../store/user/state'
 export class CreateOrUpdateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
-    public dialogCreateOrUpdateUser: MatDialog,
+    public dialogCreateOrUpdateUserRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private store: Store<{}>
   ) {}
@@ -50,26 +51,34 @@ export class CreateOrUpdateComponent implements OnInit {
     }
   ]
 
+  private userId!: number
+
   public $selectorUsers: Observable<IStateUser> = this.store.select(selectorUsers)
 
   handleSubmitBtnCreateOrUpdate() {
     if (this.formData.valid) {
-      this.store.dispatch(ACTION_CREATE_USER({payload: this.formData.value}))
+      if (this.userId) {
+        const payload = {...{id: this.userId}, ...this.formData.value}
+        this.store.dispatch(ACTION_UPDATE_USER({payload}))
+      } else {
+        this.store.dispatch(ACTION_CREATE_USER({payload: this.formData.value}))
+      }
       this.$selectorUsers.subscribe((selectorUsers: IStateUser) => {
         if (selectorUsers.status === EnumRequestStatus.SUCCEED) {
-          this.handleClickBtnCancel()
+          this.dialogCreateOrUpdateUserRef.close(EnumRequestStatus.SUCCEED)
         }
       })
     }
   }
 
   handleClickBtnCancel() {
-    this.dialogCreateOrUpdateUser.closeAll()
+    this.dialogCreateOrUpdateUserRef.close()
   }
 
   ngOnInit(): void {
     if (this.data.userDetails) {
       const {id, orderNumber, ...userDetails} = this.data.userDetails
+      this.userId = id
       this.formData.setValue(userDetails)
     }
   }

@@ -5,8 +5,9 @@ import {catchError, map, mergeMap} from 'rxjs/operators'
 
 import {ApiServices} from '../../services/api.service'
 import {
+  ACTION_CREATE_OR_UPDATE_USER_SUCCEED,
   ACTION_CREATE_USER,
-  ACTION_CREATE_USER_SUCCEED,
+  ACTION_UPDATE_USER,
   ACTION_USERS,
   ACTION_USERS_FAILED,
   ACTION_USERS_SUCCEED
@@ -32,7 +33,19 @@ export class Effects {
     this.actions.pipe(
       ofType(ACTION_CREATE_USER),
       mergeMap((action: any) => {
-        return this.apiService.post(`/users`, action.payload).pipe(map((user) => ACTION_CREATE_USER_SUCCEED({user})))
+        return this.apiService
+          .post(`/users`, action.payload)
+          .pipe(map((user) => ACTION_CREATE_OR_UPDATE_USER_SUCCEED()))
+      })
+    )
+  )
+
+  updateUser = createEffect(() =>
+    this.actions.pipe(
+      ofType(ACTION_UPDATE_USER),
+      mergeMap((action: any) => {
+        const {id, ...payload} = action.payload
+        return this.apiService.put(`/users/${id}`, payload).pipe(map(() => ACTION_CREATE_OR_UPDATE_USER_SUCCEED()))
       })
     )
   )

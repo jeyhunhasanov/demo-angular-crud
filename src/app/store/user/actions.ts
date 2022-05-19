@@ -9,4 +9,6 @@ export const ACTION_USERS_FAILED = createAction('USERS_LOAD_FAILED', props<{erro
 
 export const ACTION_CREATE_USER = createAction('FETCH_CREATE_USER', props<{payload: IUserQueryParams}>())
 
-export const ACTION_CREATE_USER_SUCCEED = createAction('CREATE_USER_SUCCEED', props<{user: IUser}>())
+export const ACTION_UPDATE_USER = createAction('FETCH_UPDATE_USER', props<{payload: IUserQueryParams}>())
+
+export const ACTION_CREATE_OR_UPDATE_USER_SUCCEED = createAction('CREATE_OR_UPDATE_USER_SUCCEED')

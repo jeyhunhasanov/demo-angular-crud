@@ -3,7 +3,7 @@
     <mat-card>
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <h1>Users ({{ usersSelectors?.users?.length ? paginationOptionsSelector?.length : 0 }})</h1>
-        <button (click)="handleClickCreatingUser()" color="primary" mat-raised-button type="button">
+        <button (click)="handleClickCreatingOrUpdatingUser()" color="primary" mat-raised-button type="button">
           <mat-icon class="sidenav-icon">person_add</mat-icon>
           Create user
         </button>
@@ -62,7 +62,7 @@
           <ng-container matColumnDef="actions">
             <th *matHeaderCellDef mat-header-cell>Actions</th>
             <td *matCellDef="let userItem" mat-cell>
-              <button (click)="handleClickCreatingUser(userItem)" mat-icon-button matTooltip="Edit">
+              <button (click)="handleClickCreatingOrUpdatingUser(userItem)" mat-icon-button matTooltip="Edit">
                 <mat-icon>edit</mat-icon>
               </button>
               <button color="warn" mat-icon-button matTooltip="Delete">

@@ -1,7 +1,8 @@
 import {Action, createReducer, on} from '@ngrx/store'
 import {
+  ACTION_CREATE_OR_UPDATE_USER_SUCCEED,
   ACTION_CREATE_USER,
-  ACTION_CREATE_USER_SUCCEED,
+  ACTION_UPDATE_USER,
   ACTION_USERS,
   ACTION_USERS_FAILED,
   ACTION_USERS_SUCCEED
@@ -35,9 +36,14 @@ const userReducer = createReducer(
     error: null,
     status: EnumRequestStatus.LOADING
   })),
-  on(ACTION_CREATE_USER_SUCCEED, (state: IStateUser, {user}) => ({
+  on(ACTION_UPDATE_USER, (state: IStateUser) => ({
     ...state,
-    users: [...[user], ...state.users],
+    isLoading: true,
+    error: null,
+    status: EnumRequestStatus.LOADING
+  })),
+  on(ACTION_CREATE_OR_UPDATE_USER_SUCCEED, (state: IStateUser) => ({
+    ...state,
     isLoading: false,
     status: EnumRequestStatus.SUCCEED
   }))

@@ -11,6 +11,7 @@ import {IStateUser} from '../../store/user/state'
 import {IUserQueryParams} from '../../models/User'
 import {IPaginationOptions} from '../../models/General'
 import {selectorPaginationOptions} from '../../store/pagination'
+import {EnumRequestStatus} from '../../enums'
 
 @Component({
   selector: 'app-users',
@@ -18,7 +19,7 @@ import {selectorPaginationOptions} from '../../store/pagination'
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  displayedColumns: string[] = ['orderNumber', 'id', 'name', 'email', 'gender', 'status', 'actions']
+  public displayedColumns: string[] = ['orderNumber', 'id', 'name', 'email', 'gender', 'status', 'actions']
 
   public $usersSelectors: Observable<IStateUser> = this.store.select(selectorUsers)
   public $paginationOptionsSelector: Observable<IPaginationOptions> = this.store.select(selectorPaginationOptions)
@@ -41,14 +42,21 @@ export class UsersComponent implements OnInit {
     this.store.dispatch(ACTION_USERS({queryParams: this.userQueryParams}))
   }
 
-  handleClickCreatingUser(userDetails?: any) {
-    this.dialogCreateOrUpdateUser.open(DialogComponent, {
+  handleClickCreatingOrUpdatingUser(userDetails?: any) {
+    const dialogCreateOrUpdateUserRef = this.dialogCreateOrUpdateUser.open(DialogComponent, {
       width: '100%',
       maxWidth: '450px',
       data: {
-        title: 'Creating user',
+        title: !!userDetails ? 'Updating user' : 'Creating user',
         content: CreateOrUpdateComponent,
-        userDetails
+        userDetails,
+        userQueryParams: this.userQueryParams
+      }
+    })
+
+    dialogCreateOrUpdateUserRef.afterClosed().subscribe((result) => {
+      if (result === EnumRequestStatus.SUCCEED) {
+        this.triggerFetchUsers(this.userQueryParams, this.pageIndex)
       }
     })
   }

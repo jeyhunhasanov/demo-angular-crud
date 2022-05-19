@@ -1,80 +1,88 @@
-<mat-card *ngIf="$usersSelectors | async as usersSelectors">
-  <div fxLayout="row" fxLayoutAlign="space-between center">
-    <h1>Users ({{ usersSelectors.users?.length || 0 }})</h1>
-    <button (click)="handleClickCreatingUser()" color="primary" mat-raised-button type="button">
-      <mat-icon class="sidenav-icon">person_add</mat-icon>
-      Create user
-    </button>
-  </div>
-  <div class="mt20 mb20">
-    <mat-divider inset></mat-divider>
-  </div>
+<ng-container *ngIf="$paginationOptionsSelector | async as paginationOptionsSelector">
+  <ng-container *ngIf="$usersSelectors | async as usersSelectors">
+    <mat-card>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h1>Users ({{ paginationOptionsSelector?.length || 0 }})</h1>
+        <button (click)="handleClickCreatingUser()" color="primary" mat-raised-button type="button">
+          <mat-icon class="sidenav-icon">person_add</mat-icon>
+          Create user
+        </button>
+      </div>
+      <div class="mt20 mb20">
+        <mat-divider inset></mat-divider>
+      </div>
 
-  <app-filter></app-filter>
+      <app-filter></app-filter>
 
-  <div class="mt20 mb20">
-    <mat-divider inset></mat-divider>
-  </div>
+      <div class="mt20 mb20">
+        <mat-divider inset></mat-divider>
+      </div>
 
-  <app-loading *ngIf="usersSelectors.isLoading; else showList"></app-loading>
-  <ng-template #showList>
-    <table [dataSource]="usersSelectors.users" class="w-100" mat-table>
-      <!-- Order number Column -->
-      <ng-container matColumnDef="orderNumber">
-        <th *matHeaderCellDef mat-header-cell>#</th>
-        <td *matCellDef="let userItem" mat-cell> {{userItem.orderNumber}} </td>
-      </ng-container>
+      <app-loading *ngIf="usersSelectors.isLoading; else showList"></app-loading>
+      <ng-template #showList>
+        <table [dataSource]="usersSelectors.users" class="w-100" mat-table>
+          <!-- Order number Column -->
+          <ng-container matColumnDef="orderNumber">
+            <th *matHeaderCellDef mat-header-cell>#</th>
+            <td *matCellDef="let userIndex = index"
+                mat-cell> {{pageIndex * paginationOptionsSelector.pageSize + userIndex + 1}} </td>
+          </ng-container>
 
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell>ID</th>
-        <td *matCellDef="let userItem" mat-cell> {{userItem.id}} </td>
-      </ng-container>
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th *matHeaderCellDef mat-header-cell>ID</th>
+            <td *matCellDef="let userItem" mat-cell> {{userItem.id}} </td>
+          </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell>Name</th>
-        <td *matCellDef="let userItem" mat-cell> {{userItem.name}} </td>
-      </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th *matHeaderCellDef mat-header-cell>Name</th>
+            <td *matCellDef="let userItem" mat-cell> {{userItem.name}} </td>
+          </ng-container>
 
-      <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <th *matHeaderCellDef mat-header-cell>Email</th>
-        <td *matCellDef="let userItem" mat-cell> {{userItem.email}} </td>
-      </ng-container>
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <th *matHeaderCellDef mat-header-cell>Email</th>
+            <td *matCellDef="let userItem" mat-cell> {{userItem.email}} </td>
+          </ng-container>
 
-      <!-- Gender Column -->
-      <ng-container matColumnDef="gender">
-        <th *matHeaderCellDef mat-header-cell>Gender</th>
-        <td *matCellDef="let userItem" mat-cell> {{userItem.gender}} </td>
-      </ng-container>
+          <!-- Gender Column -->
+          <ng-container matColumnDef="gender">
+            <th *matHeaderCellDef mat-header-cell>Gender</th>
+            <td *matCellDef="let userItem" mat-cell> {{userItem.gender}} </td>
+          </ng-container>
 
-      <!-- Status Column -->
-      <ng-container matColumnDef="status">
-        <th *matHeaderCellDef mat-header-cell>Status</th>
-        <td *matCellDef="let userItem" mat-cell> {{userItem.status}} </td>
-      </ng-container>
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th *matHeaderCellDef mat-header-cell>Status</th>
+            <td *matCellDef="let userItem" mat-cell> {{userItem.status}} </td>
+          </ng-container>
 
-      <!-- Status Column -->
-      <ng-container matColumnDef="actions">
-        <th *matHeaderCellDef mat-header-cell>Actions</th>
-        <td *matCellDef="let userItem" mat-cell>
-          <button (click)="handleClickCreatingUser(userItem)" mat-icon-button matTooltip="Edit">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button color="warn" mat-icon-button matTooltip="Delete">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
+          <!-- Status Column -->
+          <ng-container matColumnDef="actions">
+            <th *matHeaderCellDef mat-header-cell>Actions</th>
+            <td *matCellDef="let userItem" mat-cell>
+              <button (click)="handleClickCreatingUser(userItem)" mat-icon-button matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button color="warn" mat-icon-button matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
 
-      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-    </table>
-  </ng-template>
+          <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+        </table>
+      </ng-template>
 
-  <mat-paginator [length]="100" [pageSize]="20" hidePageSize></mat-paginator>
+      <mat-paginator
+        (page)="handleChangePage($event)"
+        [length]="paginationOptionsSelector?.length"
+        [pageIndex]="pageIndex"
+        [pageSize]="paginationOptionsSelector?.pageSize"
+        hidePageSize></mat-paginator>
 
-</mat-card>
-
-
+    </mat-card>
+  </ng-container>
+</ng-container>

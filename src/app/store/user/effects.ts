@@ -13,8 +13,8 @@ export class Effects {
   getUsers = createEffect(() =>
     this.actions.pipe(
       ofType(ACTION_USERS),
-      mergeMap(() => {
-        return this.apiService.get('/users').pipe(
+      mergeMap((action: any) => {
+        return this.apiService.get(`/users`, {params: action.queryParams}).pipe(
           map((users) => ACTION_USERS_SUCCEED({users})),
           catchError((error) => of(ACTION_USERS_FAILED({error: error.message})))
         )

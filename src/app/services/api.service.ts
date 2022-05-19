@@ -12,8 +12,8 @@ export class ApiServices {
 
   constructor(private http: HttpClient) {}
 
-  get(url: string): Observable<any> {
-    return this.http.get<any>(`${this.baseURL}${url}`).pipe(
+  get(url: string, options?: any): Observable<any> {
+    return this.http.get<any>(`${this.baseURL}${url}`, options).pipe(
       map((result: any) => {
         return result
       })
@@ -36,8 +36,8 @@ export class ApiServices {
     )
   }
 
-  delete(url: string, data: any): Observable<any> {
-    return this.http.delete<any>(`${this.baseURL}${url}`, data).pipe(
+  delete(url: string, options: any): Observable<any> {
+    return this.http.delete<any>(`${this.baseURL}${url}`, options).pipe(
       map((result: any) => {
         return result
       })

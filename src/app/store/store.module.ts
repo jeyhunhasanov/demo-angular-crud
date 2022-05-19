@@ -7,6 +7,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools'
 import {environment} from '../../environments/environment'
 
 import {UserStoreModule} from './user'
+import {PaginationStoreModule} from './pagination'
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {UserStoreModule} from './user'
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production
     }),
-    UserStoreModule
+    UserStoreModule,
+    PaginationStoreModule
   ],
   declarations: []
 })

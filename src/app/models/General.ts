@@ -1,8 +1,7 @@
 export interface IPaginationOptions {
-  limit: number
-  page: number
-  pages: number
-  total: number
+  pageSize: number
+  pageIndex: number
+  length: number
 }
 
 export interface IUseStore {

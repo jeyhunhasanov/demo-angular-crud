@@ -21,17 +21,20 @@ import {MatInputModule} from '@angular/material/input'
 import {ReactiveFormsModule} from '@angular/forms'
 import {MatRadioModule} from '@angular/material/radio'
 import {MatTooltipModule} from '@angular/material/tooltip'
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
+import {MatProgressBarModule} from '@angular/material/progress-bar'
 // Custom Global Components
 import {DialogComponent} from '../components/dialog/dialog.component'
 import {TextFieldComponent} from '../components/text-field/text-field.component'
 import {RadioButtonComponent} from '../components/radio-button/radio-button.component'
+import {LoadingComponent} from '../components/loading/loading.component'
 // Custom Global Directives
 import {InputCapitalizeDirectiveModule} from '../directives/input-capitalize.directive'
 import {InputLowercaseDirectiveModule} from '../directives/input-lowercase.directive'
 import {InputUppercaseDirectiveModule} from '../directives/input-uppercase.directive'
 
 @NgModule({
-  declarations: [DialogComponent, TextFieldComponent, RadioButtonComponent],
+  declarations: [DialogComponent, TextFieldComponent, RadioButtonComponent, LoadingComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -56,7 +59,9 @@ import {InputUppercaseDirectiveModule} from '../directives/input-uppercase.direc
     MatListModule,
     MatSelectModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
   exports: [
     CommonModule,
@@ -83,9 +88,14 @@ import {InputUppercaseDirectiveModule} from '../directives/input-uppercase.direc
     MatSelectModule,
     MatDialogModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    // Global Components
     DialogComponent,
     TextFieldComponent,
     RadioButtonComponent,
+    LoadingComponent,
+    // Global Directives
     InputCapitalizeDirectiveModule,
     InputLowercaseDirectiveModule,
     InputUppercaseDirectiveModule

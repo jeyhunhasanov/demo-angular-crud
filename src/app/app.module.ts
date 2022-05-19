@@ -10,10 +10,12 @@ import {SharedModule} from './shared/shared.module'
 import {LayoutComponent} from './layout/layout.component'
 import {TopNavComponent} from './layout/top-nav/top-nav.component'
 import {SideNavComponent} from './layout/side-nav/side-nav.component'
+import {RootStoreModule} from './store/store.module'
+import {OverlayLoaderComponent} from './layout/overlay-loader/overlay-loader.component'
 
 @NgModule({
-  declarations: [AppComponent, LayoutComponent, TopNavComponent, SideNavComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, IndexRouteModule, SharedModule],
+  declarations: [AppComponent, LayoutComponent, TopNavComponent, SideNavComponent, OverlayLoaderComponent],
+  imports: [BrowserModule, BrowserAnimationsModule, IndexRouteModule, SharedModule, RootStoreModule],
   providers: [],
   exports: [],
   bootstrap: [AppComponent]

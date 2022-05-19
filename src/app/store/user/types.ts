@@ -1,0 +1,1 @@
+export const FEATURE_KEY_USER = 'FEATURE_KEY_USER'

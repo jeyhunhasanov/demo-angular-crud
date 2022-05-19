@@ -1,0 +1,26 @@
+@import "../../../assets/scss/variables";
+
+.overlay-loading:before {
+  background: $overlay-loading-backgroundColor;
+  content: '';
+  display: block;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.overlay-loading {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+
+

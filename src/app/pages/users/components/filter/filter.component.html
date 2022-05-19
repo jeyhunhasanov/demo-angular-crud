@@ -43,7 +43,7 @@
       Search
     </button>
     &nbsp; &nbsp;
-    <button (click)="formData.reset()" [disabled]="!formData.dirty" class="btn-green" mat-raised-button
+    <button (click)="handleClickBtnReset()" [disabled]="!formData.dirty" class="btn-green" mat-raised-button
             type="button">
       <mat-icon>refresh</mat-icon>
       Reset filter

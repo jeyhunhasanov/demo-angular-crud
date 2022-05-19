@@ -2,7 +2,7 @@
   <ng-container *ngIf="$usersSelectors | async as usersSelectors">
     <mat-card>
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <h1>Users ({{ paginationOptionsSelector?.length || 0 }})</h1>
+        <h1>Users ({{ usersSelectors?.users?.length ? paginationOptionsSelector?.length : 0 }})</h1>
         <button (click)="handleClickCreatingUser()" color="primary" mat-raised-button type="button">
           <mat-icon class="sidenav-icon">person_add</mat-icon>
           Create user
@@ -12,7 +12,7 @@
         <mat-divider inset></mat-divider>
       </div>
 
-      <app-filter></app-filter>
+      <app-filter (triggerSubmitBtnSearch)="triggerSubmitBtnSearch($event)"></app-filter>
 
       <div class="mt20 mb20">
         <mat-divider inset></mat-divider>
@@ -78,6 +78,7 @@
 
       <mat-paginator
         (page)="handleChangePage($event)"
+        *ngIf="usersSelectors?.users?.length"
         [length]="paginationOptionsSelector?.length"
         [pageIndex]="pageIndex"
         [pageSize]="paginationOptionsSelector?.pageSize"

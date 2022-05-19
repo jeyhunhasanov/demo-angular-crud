@@ -38,7 +38,8 @@ export class UsersComponent implements OnInit {
   triggerFetchUsers(queryParams: IUserQueryParams, pageIndex: number = 0) {
     this.pageIndex = pageIndex
     this.userQueryParams = queryParams
-    this.store.dispatch(ACTION_USERS({queryParams}))
+    // this.userQueryParams.page = this.pageIndex
+    this.store.dispatch(ACTION_USERS({queryParams: this.userQueryParams}))
   }
 
   handleClickCreatingUser(userDetails?: any) {
@@ -56,5 +57,10 @@ export class UsersComponent implements OnInit {
   handleChangePage(paginationOptions: IPaginationOptions) {
     const params = {...this.userQueryParams, ...{page: paginationOptions.pageIndex + 1}}
     this.triggerFetchUsers(params, paginationOptions.pageIndex)
+  }
+
+  triggerSubmitBtnSearch(queryParams: any) {
+    this.userQueryParams = queryParams
+    this.triggerFetchUsers(queryParams, 0)
   }
 }

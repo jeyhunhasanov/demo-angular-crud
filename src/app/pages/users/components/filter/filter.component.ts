@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, Output} from '@angular/core'
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms'
+import {EventBus} from '../../../../services/evetnBus.service'
 
 @Component({
   selector: 'app-filter',
@@ -46,12 +47,33 @@ export class FilterComponent implements OnInit {
     }
   ]
 
+  @Output() triggerSubmitBtnSearch = EventBus
+
   ngOnInit(): void {}
 
   handleSubmitBtnSearch() {
-    if (this.formData.valid) {
-      console.log('Search form data: ', this.formData.value)
+    this.resetFields()
+    this.triggerSubmitBtnSearch.emit(this.formData.value)
+  }
+
+  resetFields() {
+    if (!this.formData.value.name) {
+      this.formData.value.name = ''
     }
+    if (!this.formData.value.email) {
+      this.formData.value.email = ''
+    }
+    if (!this.formData.value.gender) {
+      this.formData.value.gender = ''
+    }
+    if (!this.formData.value.status) {
+      this.formData.value.status = ''
+    }
+  }
+
+  handleClickBtnReset() {
+    this.formData.reset()
+    this.handleSubmitBtnSearch()
   }
 
   get name(): FormControl {

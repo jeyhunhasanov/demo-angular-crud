@@ -7,12 +7,14 @@ import {AppComponent} from './app.component'
 
 import {IndexRouteModule} from './routes/index.module'
 import {SharedModule} from './shared/shared.module'
+import {RootStoreModule} from './store/store.module'
+// Services
 import {InterceptorService} from './services/interceptor.service'
-
+import {SnackbarService} from './services/snackbar.service'
+// Components
 import {LayoutComponent} from './layout/layout.component'
 import {TopNavComponent} from './layout/top-nav/top-nav.component'
 import {SideNavComponent} from './layout/side-nav/side-nav.component'
-import {RootStoreModule} from './store/store.module'
 import {OverlayLoaderComponent} from './layout/overlay-loader/overlay-loader.component'
 
 @NgModule({
@@ -23,7 +25,8 @@ import {OverlayLoaderComponent} from './layout/overlay-loader/overlay-loader.com
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true
-    }
+    },
+    SnackbarService
   ],
   exports: [],
   bootstrap: [AppComponent]

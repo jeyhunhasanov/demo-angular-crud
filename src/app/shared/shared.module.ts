@@ -23,18 +23,20 @@ import {MatRadioModule} from '@angular/material/radio'
 import {MatTooltipModule} from '@angular/material/tooltip'
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import {MatProgressBarModule} from '@angular/material/progress-bar'
+import {MatSnackBarModule} from '@angular/material/snack-bar'
 // Custom Global Components
 import {DialogComponent} from '../components/dialog/dialog.component'
 import {TextFieldComponent} from '../components/text-field/text-field.component'
 import {RadioButtonComponent} from '../components/radio-button/radio-button.component'
 import {LoadingComponent} from '../components/loading/loading.component'
+import {SnackbarComponent} from '../components/snackbar/snackbar.component'
 // Custom Global Directives
 import {InputCapitalizeDirectiveModule} from '../directives/input-capitalize.directive'
 import {InputLowercaseDirectiveModule} from '../directives/input-lowercase.directive'
 import {InputUppercaseDirectiveModule} from '../directives/input-uppercase.directive'
 
 @NgModule({
-  declarations: [DialogComponent, TextFieldComponent, RadioButtonComponent, LoadingComponent],
+  declarations: [DialogComponent, TextFieldComponent, RadioButtonComponent, LoadingComponent, SnackbarComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -61,7 +63,8 @@ import {InputUppercaseDirectiveModule} from '../directives/input-uppercase.direc
     MatDialogModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSnackBarModule
   ],
   exports: [
     CommonModule,
@@ -90,11 +93,13 @@ import {InputUppercaseDirectiveModule} from '../directives/input-uppercase.direc
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatSnackBarModule,
     // Global Components
     DialogComponent,
     TextFieldComponent,
     RadioButtonComponent,
     LoadingComponent,
+    SnackbarComponent,
     // Global Directives
     InputCapitalizeDirectiveModule,
     InputLowercaseDirectiveModule,

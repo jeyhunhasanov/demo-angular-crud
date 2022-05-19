@@ -6,10 +6,11 @@ import {Store} from '@ngrx/store'
 
 import {ACTION_PAGINATION_OPTIONS} from '../store/pagination/actions'
 import {IPaginationOptions} from '../models/General'
+import {SnackbarService} from './snackbar.service'
 
 @Injectable()
 export class InterceptorService implements HttpInterceptor {
-  constructor(private store: Store<{}>) {}
+  constructor(private store: Store<{}>, private snackbar: SnackbarService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (!request.headers.has('Accept')) {
@@ -41,6 +42,10 @@ export class InterceptorService implements HttpInterceptor {
         return event
       }),
       catchError((error) => {
+        this.snackbar.show({
+          message: error,
+          panelClass: 'error'
+        })
         return throwError(error)
       })
     )

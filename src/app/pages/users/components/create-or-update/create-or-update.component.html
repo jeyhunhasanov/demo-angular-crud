@@ -1,61 +1,60 @@
-<form (ngSubmit)="handleSubmitBtnCreateOrUpdate()" [formGroup]="formData">
-  <div fxLayout="column" fxLayoutGap="16px grid">
-    <div>
-      <app-text-field
-        [formGrp]="formData"
-        [rules]="name.errors"
-        appInputCapitalizeDirective="every"
-        formCtrlNm="name"
-        label="Name"
-      ></app-text-field>
-    </div>
+<ng-container *ngIf="$selectorUsers | async as selectorUsers">
+  <form (ngSubmit)="handleSubmitBtnCreateOrUpdate()" [formGroup]="formData">
+    <div fxLayout="column" fxLayoutGap="16px grid">
+      <div>
+        <app-text-field
+          [formGrp]="formData"
+          [rules]="name.errors"
+          appInputCapitalizeDirective="every"
+          formCtrlNm="name"
+          label="Name"
+        ></app-text-field>
+      </div>
 
-    <div>
-      <app-text-field
-        [formGrp]="formData"
-        [rules]="email.errors"
-        appInputLowercaseDirective
-        formCtrlNm="email"
-        label="Email"
-        type="email"
-      ></app-text-field>
-    </div>
+      <div>
+        <app-text-field
+          [formGrp]="formData"
+          [rules]="email.errors"
+          appInputLowercaseDirective
+          formCtrlNm="email"
+          label="Email"
+          type="email"
+        ></app-text-field>
+      </div>
 
-    <div>
-      <app-radio-button
-        [buttons]="buttonsGender"
-        [formGrp]="formData"
-        [required]="true"
-        formCtrlNm="gender"
-        label="Gender"
-      ></app-radio-button>
-    </div>
+      <div>
+        <app-radio-button
+          [buttons]="buttonsGender"
+          [formGrp]="formData"
+          [required]="true"
+          formCtrlNm="gender"
+          label="Gender"
+        ></app-radio-button>
+      </div>
 
-    <div>
-      <app-radio-button
-        [buttons]="buttonsStatus"
-        [formGrp]="formData"
-        [required]="true"
-        formCtrlNm="status"
-        label="Status"
-      ></app-radio-button>
-    </div>
+      <div>
+        <app-radio-button
+          [buttons]="buttonsStatus"
+          [formGrp]="formData"
+          [required]="true"
+          formCtrlNm="status"
+          label="Status"
+        ></app-radio-button>
+      </div>
 
-  </div>
-  <div class="mt20">
-    <button
-      [disabled]="formData.invalid"
-      color="primary"
-      mat-raised-button
-      type="submit"
-    >
-      <mat-icon>check</mat-icon>
-      Ok
-    </button>
-    &nbsp; &nbsp;
-    <button (click)="handleClickBtnCancel()" class="btn-green" mat-raised-button type="button">
-      <mat-icon>close</mat-icon>
-      Cancel
-    </button>
-  </div>
-</form>
+    </div>
+    <div class="mt20">
+      <app-loading-button
+        [disabled]="formData.invalid"
+        [loading]="selectorUsers?.isLoading"
+        icon="check"
+        text="Ok">
+      </app-loading-button>
+      &nbsp; &nbsp;
+      <button (click)="handleClickBtnCancel()" class="btn-green" mat-raised-button type="button">
+        <mat-icon>close</mat-icon>
+        Cancel
+      </button>
+    </div>
+  </form>
+</ng-container>

@@ -1,0 +1,28 @@
+@import "src/assets/scss/variables";
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.button-loading:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid $color-white;
+  border-top-color: $color-primary;
+  animation: spinner .8s linear infinite;
+}
+
+.button-loading .mat-button-wrapper {
+  opacity: 0;
+  visibility: hidden;
+}

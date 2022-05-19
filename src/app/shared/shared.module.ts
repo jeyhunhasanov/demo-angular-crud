@@ -30,13 +30,21 @@ import {TextFieldComponent} from '../components/text-field/text-field.component'
 import {RadioButtonComponent} from '../components/radio-button/radio-button.component'
 import {LoadingComponent} from '../components/loading/loading.component'
 import {SnackbarComponent} from '../components/snackbar/snackbar.component'
+import {LoadingButtonComponent} from '../components/loading-button/loading-button.component'
 // Custom Global Directives
 import {InputCapitalizeDirectiveModule} from '../directives/input-capitalize.directive'
 import {InputLowercaseDirectiveModule} from '../directives/input-lowercase.directive'
 import {InputUppercaseDirectiveModule} from '../directives/input-uppercase.directive'
 
 @NgModule({
-  declarations: [DialogComponent, TextFieldComponent, RadioButtonComponent, LoadingComponent, SnackbarComponent],
+  declarations: [
+    DialogComponent,
+    TextFieldComponent,
+    RadioButtonComponent,
+    LoadingComponent,
+    SnackbarComponent,
+    LoadingButtonComponent
+  ],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -100,6 +108,7 @@ import {InputUppercaseDirectiveModule} from '../directives/input-uppercase.direc
     RadioButtonComponent,
     LoadingComponent,
     SnackbarComponent,
+    LoadingButtonComponent,
     // Global Directives
     InputCapitalizeDirectiveModule,
     InputLowercaseDirectiveModule,

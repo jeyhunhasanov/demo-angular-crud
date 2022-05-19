@@ -13,13 +13,17 @@ export const isLoading: MemoizedSelector<object, boolean> = createSelector(userS
 
 export const error: MemoizedSelector<object, any> = createSelector(userState, Getters.error)
 
+export const status: MemoizedSelector<object, string> = createSelector(userState, Getters.status)
+
 export const selectorUsers = createSelector(
   users,
   isLoading,
   error,
-  (users: IUser[], isLoading: boolean, error: any) => ({
+  status,
+  (users: IUser[], isLoading: boolean, error: any, status: string) => ({
     users,
     error,
-    isLoading
+    isLoading,
+    status
   })
 )

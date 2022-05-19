@@ -4,7 +4,13 @@ import {of} from 'rxjs'
 import {catchError, map, mergeMap} from 'rxjs/operators'
 
 import {ApiServices} from '../../services/api.service'
-import {ACTION_USERS, ACTION_USERS_FAILED, ACTION_USERS_SUCCEED} from './actions'
+import {
+  ACTION_CREATE_USER,
+  ACTION_CREATE_USER_SUCCEED,
+  ACTION_USERS,
+  ACTION_USERS_FAILED,
+  ACTION_USERS_SUCCEED
+} from './actions'
 
 @Injectable()
 export class Effects {
@@ -18,6 +24,15 @@ export class Effects {
           map((users) => ACTION_USERS_SUCCEED({users})),
           catchError((error) => of(ACTION_USERS_FAILED({error: error.message})))
         )
+      })
+    )
+  )
+
+  createUser = createEffect(() =>
+    this.actions.pipe(
+      ofType(ACTION_CREATE_USER),
+      mergeMap((action: any) => {
+        return this.apiService.post(`/users`, action.payload).pipe(map((user) => ACTION_CREATE_USER_SUCCEED({user})))
       })
     )
   )

@@ -1,6 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core'
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog'
+import {ACTION_CREATE_USER} from '../../../../store/user/actions'
+import {Store} from '@ngrx/store'
+import {Observable} from 'rxjs'
+import {selectorUsers} from '../../../../store/user'
+import {EnumRequestStatus} from '../../../../enums'
+import {IStateUser} from '../../../../store/user/state'
 
 @Component({
   selector: 'app-create-or-update',
@@ -11,17 +17,18 @@ export class CreateOrUpdateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public dialogCreateOrUpdateUser: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private store: Store<{}>
   ) {}
 
-  formData: FormGroup = this.formBuilder.group({
+  public formData: FormGroup = this.formBuilder.group({
     name: [null, [Validators.required, Validators.minLength(3)]],
     email: [null, [Validators.required, Validators.email]],
     gender: [null, [Validators.required]],
     status: [null, [Validators.required]]
   })
 
-  buttonsGender: any = [
+  public buttonsGender: any = [
     {
       text: 'Male',
       value: 'male'
@@ -32,7 +39,7 @@ export class CreateOrUpdateComponent implements OnInit {
     }
   ]
 
-  buttonsStatus: any = [
+  public buttonsStatus: any = [
     {
       text: 'Active',
       value: 'active'
@@ -43,9 +50,16 @@ export class CreateOrUpdateComponent implements OnInit {
     }
   ]
 
+  public $selectorUsers: Observable<IStateUser> = this.store.select(selectorUsers)
+
   handleSubmitBtnCreateOrUpdate() {
     if (this.formData.valid) {
-      console.log('Create or update form data: ', this.formData.value)
+      this.store.dispatch(ACTION_CREATE_USER({payload: this.formData.value}))
+      this.$selectorUsers.subscribe((selectorUsers: IStateUser) => {
+        if (selectorUsers.status === EnumRequestStatus.SUCCEED) {
+          this.handleClickBtnCancel()
+        }
+      })
     }
   }
 

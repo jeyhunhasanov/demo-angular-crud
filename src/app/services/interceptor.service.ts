@@ -43,7 +43,7 @@ export class InterceptorService implements HttpInterceptor {
       }),
       catchError((error) => {
         this.snackbar.show({
-          message: error,
+          message: `${error.error[0].field} ${error.error[0].message}`,
           panelClass: 'error'
         })
         return throwError(error)

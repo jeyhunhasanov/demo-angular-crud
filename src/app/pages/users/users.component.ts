@@ -38,7 +38,6 @@ export class UsersComponent implements OnInit {
   triggerFetchUsers(queryParams: IUserQueryParams, pageIndex: number = 0) {
     this.pageIndex = pageIndex
     this.userQueryParams = queryParams
-    // this.userQueryParams.page = this.pageIndex
     this.store.dispatch(ACTION_USERS({queryParams: this.userQueryParams}))
   }
 

@@ -15,7 +15,8 @@ const routes: Routes = [
       ...UsersRoute,
       {
         path: '**',
-        component: NotFoundPageComponent
+        component: NotFoundPageComponent,
+        data: {animationState: 'NotFoundPage'}
       }
     ]
   }

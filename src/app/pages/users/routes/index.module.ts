@@ -11,6 +11,7 @@ export const UsersRoute: Routes = [
       {
         path: '',
         component: UsersComponent,
+        data: {animationState: 'Users'},
         loadChildren: () => UsersModule
       },
       ...DetailsRoute

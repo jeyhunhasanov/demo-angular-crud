@@ -6,7 +6,8 @@ export const DetailsRoute: Routes = [
   {
     path: 'details',
     component: DetailsComponent,
-    loadChildren: () => DetailsModule
+    loadChildren: () => DetailsModule,
+    data: {animationState: 'UserDetails'}
     // children: [
     //   {
     //     path: '',

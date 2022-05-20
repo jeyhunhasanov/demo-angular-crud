@@ -6,8 +6,8 @@
       <app-side-nav></app-side-nav>
     </mat-sidenav>
     <mat-sidenav-content>
-      <main class="main-container">
-        <router-outlet></router-outlet>
+      <main [@routerTransition]="prepareRoute(outlet)" class="main-container">
+        <router-outlet #outlet="outlet"></router-outlet>
       </main>
     </mat-sidenav-content>
   </mat-sidenav-container>

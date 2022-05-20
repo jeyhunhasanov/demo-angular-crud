@@ -6,6 +6,7 @@ export const HomeRoute: Routes = [
   {
     path: '',
     component: HomeComponent,
+    data: {animationState: 'Home'},
     loadChildren: () => HomeModule
   }
 ]

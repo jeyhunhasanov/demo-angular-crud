@@ -24,6 +24,7 @@ import {MatTooltipModule} from '@angular/material/tooltip'
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import {MatProgressBarModule} from '@angular/material/progress-bar'
 import {MatSnackBarModule} from '@angular/material/snack-bar'
+import {RouterModule} from '@angular/router'
 // Custom Global Components
 import {DialogComponent} from '../components/dialog/dialog.component'
 import {TextFieldComponent} from '../components/text-field/text-field.component'
@@ -72,7 +73,8 @@ import {InputUppercaseDirectiveModule} from '../directives/input-uppercase.direc
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    RouterModule
   ],
   exports: [
     CommonModule,
@@ -102,6 +104,7 @@ import {InputUppercaseDirectiveModule} from '../directives/input-uppercase.direc
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatSnackBarModule,
+    RouterModule,
     // Global Components
     DialogComponent,
     TextFieldComponent,

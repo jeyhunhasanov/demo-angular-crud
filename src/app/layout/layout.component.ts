@@ -1,11 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core'
 import {Subscription} from 'rxjs'
 import {MediaChange, MediaObserver} from '@angular/flex-layout'
+import {RouterOutlet} from '@angular/router'
+import {routeTransitionAnimations} from '../routes/transition-animations'
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrls: ['./layout.component.scss'],
+  animations: [routeTransitionAnimations]
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   constructor(media: MediaObserver) {
@@ -33,6 +36,14 @@ export class LayoutComponent implements OnInit, OnDestroy {
   sideNavMode: 'side' | 'over' = 'side'
   toolBarHeight = 64
   private readonly mediaWatcher: Subscription
+
+  // endregion
+
+  // region Methods
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animationState']
+  }
 
   // endregion
 

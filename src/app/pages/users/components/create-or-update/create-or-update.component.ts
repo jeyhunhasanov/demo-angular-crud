@@ -1,15 +1,19 @@
 import {Component, Inject, OnInit} from '@angular/core'
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog'
-import {ACTION_CREATE_USER, ACTION_UPDATE_USER} from '../../../../store/user/actions'
 import {Store} from '@ngrx/store'
 import {Observable} from 'rxjs'
 import {take} from 'rxjs/operators'
-import {selectorUsers} from '../../../../store/user'
-import {EnumRequestStatus} from '../../../../enums'
-import {IStateUser} from '../../../../store/user/state'
+// Components
 import {DialogComponent} from '../../../../components/dialog/dialog.component'
+// Enums
+import {EnumRequestStatus} from '../../../../enums'
+// Services
 import {SnackbarService} from '../../../../services/snackbar.service'
+// Stores
+import {ACTION_CREATE_USER, ACTION_UPDATE_USER} from '../../../../store/user/actions'
+import {selectorUsers} from '../../../../store/user'
+import {IStateUser} from '../../../../store/user/state'
 
 @Component({
   selector: 'app-create-or-update',
@@ -24,6 +28,8 @@ export class CreateOrUpdateComponent implements OnInit {
     private store: Store<{}>,
     private snackbar: SnackbarService
   ) {}
+
+  // region Data
 
   public formData: FormGroup = this.formBuilder.group({
     name: [null, [Validators.required, Validators.minLength(3)]],
@@ -58,6 +64,10 @@ export class CreateOrUpdateComponent implements OnInit {
 
   public $selectorsUser: Observable<IStateUser> = this.store.select(selectorUsers)
 
+  // endregion
+
+  // region Methods
+
   handleSubmitBtnCreateOrUpdate() {
     if (this.formData.valid) {
       let message: string
@@ -84,6 +94,10 @@ export class CreateOrUpdateComponent implements OnInit {
     this.dialogCreateOrUpdateUserRef.close()
   }
 
+  // endregion
+
+  // region  Hooks
+
   ngOnInit(): void {
     if (this.data.userDetails) {
       const {id, orderNumber, ...userDetails} = this.data.userDetails
@@ -91,6 +105,10 @@ export class CreateOrUpdateComponent implements OnInit {
       this.formData.setValue(userDetails)
     }
   }
+
+  // endregion
+
+  // region Computed
 
   get name(): FormControl {
     return this.formData.get('name') as FormControl
@@ -107,4 +125,6 @@ export class CreateOrUpdateComponent implements OnInit {
   get status(): FormControl {
     return this.formData.get('status') as FormControl
   }
+
+  // endregion
 }

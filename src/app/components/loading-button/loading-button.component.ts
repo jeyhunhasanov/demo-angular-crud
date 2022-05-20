@@ -10,12 +10,16 @@ import {ThemePalette} from '@angular/material/core'
 export class LoadingButtonComponent implements OnInit {
   constructor() {}
 
+  // region Props
+
   @Input() text!: string
   @Input() icon: string = ''
   @Input() color: ThemePalette = 'primary'
   @Input() type: string = 'submit'
   @Input() loading: boolean | undefined = false
   @Input() disabled: boolean = false
+
+  // endregion
 
   ngOnInit(): void {}
 }

@@ -1,5 +1,6 @@
 import {Component, OnInit, Output} from '@angular/core'
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms'
+// Services
 import {EventBus} from '../../../../services/evetnBus.service'
 
 @Component({
@@ -10,14 +11,16 @@ import {EventBus} from '../../../../services/evetnBus.service'
 export class FilterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {}
 
-  formData: FormGroup = this.formBuilder.group({
+  // region Data
+
+  public formData: FormGroup = this.formBuilder.group({
     name: [''],
     email: [''],
     gender: [''],
     status: ['']
   })
 
-  buttonsGender: any = [
+  public buttonsGender: any = [
     {
       text: 'All',
       value: ''
@@ -32,7 +35,7 @@ export class FilterComponent implements OnInit {
     }
   ]
 
-  buttonsStatus: any = [
+  public buttonsStatus: any = [
     {
       text: 'All',
       value: ''
@@ -47,9 +50,15 @@ export class FilterComponent implements OnInit {
     }
   ]
 
+  // endregion
+
+  // region Props
+
   @Output() triggerSubmitBtnSearch = EventBus
 
-  ngOnInit(): void {}
+  // endregion
+
+  // region Methods
 
   handleSubmitBtnSearch() {
     this.resetFields()
@@ -76,6 +85,16 @@ export class FilterComponent implements OnInit {
     this.handleSubmitBtnSearch()
   }
 
+  // endregion
+
+  // region Hooks
+
+  ngOnInit(): void {}
+
+  // endregion
+
+  // region Computed
+
   get name(): FormControl {
     return this.formData.get('name') as FormControl
   }
@@ -91,4 +110,6 @@ export class FilterComponent implements OnInit {
   get status(): FormControl {
     return this.formData.get('status') as FormControl
   }
+
+  // endregion
 }

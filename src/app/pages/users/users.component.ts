@@ -2,18 +2,22 @@ import {Component, OnInit} from '@angular/core'
 import {MatDialog} from '@angular/material/dialog'
 import {Store} from '@ngrx/store'
 import {Observable} from 'rxjs'
-
+import {take} from 'rxjs/operators'
+// Components
 import {DialogComponent} from '../../components/dialog/dialog.component'
 import {CreateOrUpdateComponent} from './components/create-or-update/create-or-update.component'
+// Enums
+import {EnumRequestStatus} from '../../enums'
+// Models
+import {IPaginationOptions} from '../../models/General'
+import {IUser, IUserQueryParams} from '../../models/User'
+// Services
+import {SnackbarService} from '../../services/snackbar.service'
+// Stores
 import {selectorUsers} from '../../store/user'
 import {ACTION_DELETE_USER, ACTION_USERS} from '../../store/user/actions'
 import {IStateUser} from '../../store/user/state'
-import {IUser, IUserQueryParams} from '../../models/User'
-import {IPaginationOptions} from '../../models/General'
 import {selectorPaginationOptions} from '../../store/pagination'
-import {EnumRequestStatus} from '../../enums'
-import {take} from 'rxjs/operators'
-import {SnackbarService} from '../../services/snackbar.service'
 
 @Component({
   selector: 'app-users',
@@ -21,6 +25,10 @@ import {SnackbarService} from '../../services/snackbar.service'
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
+  constructor(public dialog: MatDialog, private store: Store<{}>, private snackbar: SnackbarService) {}
+
+  // region Data
+
   public displayedColumns: string[] = ['orderNumber', 'id', 'name', 'email', 'gender', 'status', 'actions']
 
   public $selectorsUser: Observable<IStateUser> = this.store.select(selectorUsers)
@@ -32,11 +40,9 @@ export class UsersComponent implements OnInit {
 
   public pageIndex: number = 0
 
-  constructor(public dialog: MatDialog, private store: Store<{}>, private snackbar: SnackbarService) {}
+  // endregion
 
-  ngOnInit(): void {
-    this.triggerFetchUsers(this.userQueryParams)
-  }
+  // region Methods
 
   triggerFetchUsers(queryParams: IUserQueryParams, pageIndex: number = 0) {
     this.pageIndex = pageIndex
@@ -95,4 +101,14 @@ export class UsersComponent implements OnInit {
     this.userQueryParams = queryParams
     this.triggerFetchUsers(queryParams, 0)
   }
+
+  // endregion
+
+  // region Hooks
+
+  ngOnInit(): void {
+    this.triggerFetchUsers(this.userQueryParams)
+  }
+
+  // endregion
 }

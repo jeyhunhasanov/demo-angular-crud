@@ -14,11 +14,15 @@ interface IRadioButtons {
 export class RadioButtonComponent implements OnInit {
   constructor() {}
 
+  // region Props
+
   @Input() label!: string
   @Input() required: boolean = false
   @Input() formCtrlNm!: string
   @Input() formGrp!: FormGroup
   @Input() buttons!: IRadioButtons[]
+
+  // endregion
 
   ngOnInit(): void {}
 }

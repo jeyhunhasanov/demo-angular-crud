@@ -18,7 +18,13 @@ interface IValidationErrors {
 export class TextFieldComponent implements OnInit, OnChanges {
   constructor() {}
 
-  validationRules: IValidationErrors = {}
+  // region Data
+
+  public validationRules: IValidationErrors = {}
+
+  // endregion
+
+  // region Props
 
   @Input() type: string = 'text'
   @Input() appearance: MatFormFieldAppearance = 'outline'
@@ -27,9 +33,15 @@ export class TextFieldComponent implements OnInit, OnChanges {
   @Input() formCtrlNm!: string
   @Input() rules: any = {}
 
+  // endregion
+
+  // region Hooks
+
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.validationRules = changes?.['rules']?.currentValue
   }
+
+  // endregion
 }

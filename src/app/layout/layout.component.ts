@@ -45,6 +45,14 @@ export class LayoutComponent implements OnInit, OnDestroy {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animationState']
   }
 
+  sideNavToggled() {
+    this.sideNavOpened = !this.sideNavOpened
+  }
+
+  handleClosed() {
+    this.sideNavOpened = false
+  }
+
   // endregion
 
   // region Hooks

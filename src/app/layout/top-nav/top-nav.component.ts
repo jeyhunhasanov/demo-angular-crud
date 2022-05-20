@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, EventEmitter, OnInit, Output} from '@angular/core'
 
 @Component({
   selector: 'app-top-nav',
@@ -7,6 +7,20 @@ import {Component, OnInit} from '@angular/core'
 })
 export class TopNavComponent implements OnInit {
   constructor() {}
+
+  // region Props
+
+  @Output() sideNavToggled = new EventEmitter<void>()
+
+  // endregion
+
+  // region Methods
+
+  toggleSidebar() {
+    this.sideNavToggled.emit()
+  }
+
+  // endregion
 
   ngOnInit() {}
 }

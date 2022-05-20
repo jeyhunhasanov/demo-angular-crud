@@ -1,7 +1,7 @@
-import {Component, OnInit, Output} from '@angular/core'
+import {Component, EventEmitter, OnInit, Output} from '@angular/core'
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms'
-// Services
-import {EventBus} from '../../../../services/evetnBus.service'
+// Models
+import {IUserQueryParams} from '../../../../models/User'
 
 @Component({
   selector: 'app-filter',
@@ -54,7 +54,7 @@ export class FilterComponent implements OnInit {
 
   // region Props
 
-  @Output() triggerSubmitBtnSearch = EventBus
+  @Output() triggerSubmitBtnSearch = new EventEmitter<IUserQueryParams>()
 
   // endregion
 
@@ -66,16 +66,16 @@ export class FilterComponent implements OnInit {
   }
 
   resetFields() {
-    if (!this.formData.value.name) {
+    if (this.formData.value.name === null) {
       this.formData.value.name = ''
     }
-    if (!this.formData.value.email) {
+    if (this.formData.value.email === null) {
       this.formData.value.email = ''
     }
-    if (!this.formData.value.gender) {
+    if (this.formData.value.gender === null) {
       this.formData.value.gender = ''
     }
-    if (!this.formData.value.status) {
+    if (this.formData.value.status === null) {
       this.formData.value.status = ''
     }
   }

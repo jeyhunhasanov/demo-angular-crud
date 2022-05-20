@@ -6,7 +6,11 @@ import {Component, OnInit} from '@angular/core'
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit {
-  routes = [
+  constructor() {}
+
+  // region Data
+
+  public routes = [
     {
       path: '/',
       icon: 'home',
@@ -19,7 +23,7 @@ export class SideNavComponent implements OnInit {
     }
   ]
 
-  constructor() {}
+  // endregion
 
   ngOnInit() {}
 }

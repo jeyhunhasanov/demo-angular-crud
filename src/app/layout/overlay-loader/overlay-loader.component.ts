@@ -8,13 +8,25 @@ import {AfterViewInit, Component, OnInit} from '@angular/core'
 export class OverlayLoaderComponent implements OnInit, AfterViewInit {
   constructor() {}
 
-  isActive: boolean = true
+  // region Data
 
-  ngOnInit(): void {}
+  public isActive: boolean = true
+
+  // endregion
+
+  // region Methods
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.isActive = false
     })
   }
+
+  // endregion
+
+  // region Hooks
+
+  ngOnInit(): void {}
+
+  // endregion
 }

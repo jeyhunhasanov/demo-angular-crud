@@ -2,7 +2,7 @@
   <app-overlay-loader></app-overlay-loader>
   <app-top-nav></app-top-nav>
   <mat-sidenav-container [style.marginTop.px]="toolBarHeight" class="sidenav-container">
-    <mat-sidenav class="sidenav mat-elevation-z10" mode="side" opened>
+    <mat-sidenav class="sidenav mat-elevation-z10" mode="side" [opened]="sideNavOpened">
       <app-side-nav></app-side-nav>
     </mat-sidenav>
     <mat-sidenav-content>

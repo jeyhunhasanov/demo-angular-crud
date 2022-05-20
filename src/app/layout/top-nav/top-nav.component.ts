@@ -1,5 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core'
-import {Router} from '@angular/router'
+import {Component, OnInit} from '@angular/core'
 
 @Component({
   selector: 'app-top-nav',
@@ -7,13 +6,7 @@ import {Router} from '@angular/router'
   styleUrls: ['./top-nav.component.scss']
 })
 export class TopNavComponent implements OnInit {
-  @Output() sideNavToggled = new EventEmitter<void>()
-
-  constructor(private readonly router: Router) {}
+  constructor() {}
 
   ngOnInit() {}
-
-  toggleSidebar() {
-    this.sideNavToggled.emit()
-  }
 }

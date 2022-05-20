@@ -97,7 +97,7 @@ export class UsersComponent implements OnInit {
     this.triggerFetchUsers(params, paginationOptions.pageIndex)
   }
 
-  triggerSubmitBtnSearch(queryParams: any) {
+  triggerSubmitBtnSearch(queryParams: IUserQueryParams) {
     this.userQueryParams = queryParams
     this.triggerFetchUsers(queryParams, 0)
   }

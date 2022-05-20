@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core'
-import {MediaChange, MediaObserver} from '@angular/flex-layout'
 import {Subscription} from 'rxjs'
+import {MediaChange, MediaObserver} from '@angular/flex-layout'
 
 @Component({
   selector: 'app-layout',
@@ -8,11 +8,6 @@ import {Subscription} from 'rxjs'
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit, OnDestroy {
-  sideNavOpened = true
-  sideNavMode: 'side' | 'over' = 'side'
-  toolBarHeight = 64
-  private readonly mediaWatcher: Subscription
-
   constructor(media: MediaObserver) {
     this.mediaWatcher = media.media$.subscribe((change: MediaChange) => {
       if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
@@ -32,9 +27,22 @@ export class LayoutComponent implements OnInit, OnDestroy {
     })
   }
 
+  // region Data
+
+  sideNavOpened: boolean = true
+  sideNavMode: 'side' | 'over' = 'side'
+  toolBarHeight = 64
+  private readonly mediaWatcher: Subscription
+
+  // endregion
+
+  // region Hooks
+
   ngOnInit() {}
 
   ngOnDestroy(): void {
     this.mediaWatcher.unsubscribe()
   }
+
+  // endregion
 }

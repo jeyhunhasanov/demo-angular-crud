@@ -1,4 +1,4 @@
-<ng-container *ngIf="$selectorUsers | async as selectorUsers">
+<ng-container *ngIf="$selectorsUser | async as selectorsUser">
   <form (ngSubmit)="handleSubmitBtnCreateOrUpdate()" [formGroup]="formData">
     <div fxLayout="column" fxLayoutGap="16px grid">
       <div>
@@ -46,7 +46,7 @@
     <div class="mt20">
       <app-loading-button
         [disabled]="formData.invalid"
-        [loading]="selectorUsers?.isLoading"
+        [loading]="selectorsUser?.isLoading"
         icon="check"
         text="Ok">
       </app-loading-button>

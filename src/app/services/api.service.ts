@@ -36,7 +36,7 @@ export class ApiServices {
     )
   }
 
-  delete(url: string, options: any): Observable<any> {
+  delete(url: string, options?: any): Observable<any> {
     return this.http.delete<any>(`${this.baseURL}${url}`, options).pipe(
       map((result: any) => {
         return result

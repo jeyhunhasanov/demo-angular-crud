@@ -1,8 +1,8 @@
 <ng-container *ngIf="$paginationOptionsSelector | async as paginationOptionsSelector">
-  <ng-container *ngIf="$usersSelectors | async as usersSelectors">
+  <ng-container *ngIf="$selectorsUser | async as selectorsUser">
     <mat-card>
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <h1>Users ({{ usersSelectors?.users?.length ? paginationOptionsSelector?.length : 0 }})</h1>
+        <h1>Users ({{ selectorsUser?.users?.length ? paginationOptionsSelector?.length : 0 }})</h1>
         <button (click)="handleClickCreatingOrUpdatingUser()" color="primary" mat-raised-button type="button">
           <mat-icon class="sidenav-icon">person_add</mat-icon>
           Create user
@@ -18,9 +18,9 @@
         <mat-divider inset></mat-divider>
       </div>
 
-      <app-loading *ngIf="usersSelectors.isLoading; else showList"></app-loading>
+      <app-loading *ngIf="selectorsUser.usersLoading; else showList"></app-loading>
       <ng-template #showList>
-        <table [dataSource]="usersSelectors.users" class="w-100" mat-table>
+        <table [dataSource]="selectorsUser.users" class="w-100" mat-table>
           <!-- Order number Column -->
           <ng-container matColumnDef="orderNumber">
             <th *matHeaderCellDef mat-header-cell>#</th>
@@ -65,7 +65,7 @@
               <button (click)="handleClickCreatingOrUpdatingUser(userItem)" mat-icon-button matTooltip="Edit">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button color="warn" mat-icon-button matTooltip="Delete">
+              <button (click)="handleClickDeletingUser(userItem)" color="warn" mat-icon-button matTooltip="Delete">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
@@ -78,7 +78,7 @@
 
       <mat-paginator
         (page)="handleChangePage($event)"
-        *ngIf="usersSelectors?.users?.length"
+        *ngIf="selectorsUser?.users?.length"
         [length]="paginationOptionsSelector?.length"
         [pageIndex]="pageIndex"
         [pageSize]="paginationOptionsSelector?.pageSize"

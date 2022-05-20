@@ -6,12 +6,14 @@ import {Observable} from 'rxjs'
 import {DialogComponent} from '../../components/dialog/dialog.component'
 import {CreateOrUpdateComponent} from './components/create-or-update/create-or-update.component'
 import {selectorUsers} from '../../store/user'
-import {ACTION_USERS} from '../../store/user/actions'
+import {ACTION_DELETE_USER, ACTION_USERS} from '../../store/user/actions'
 import {IStateUser} from '../../store/user/state'
-import {IUserQueryParams} from '../../models/User'
+import {IUser, IUserQueryParams} from '../../models/User'
 import {IPaginationOptions} from '../../models/General'
 import {selectorPaginationOptions} from '../../store/pagination'
 import {EnumRequestStatus} from '../../enums'
+import {take} from 'rxjs/operators'
+import {SnackbarService} from '../../services/snackbar.service'
 
 @Component({
   selector: 'app-users',
@@ -21,7 +23,7 @@ import {EnumRequestStatus} from '../../enums'
 export class UsersComponent implements OnInit {
   public displayedColumns: string[] = ['orderNumber', 'id', 'name', 'email', 'gender', 'status', 'actions']
 
-  public $usersSelectors: Observable<IStateUser> = this.store.select(selectorUsers)
+  public $selectorsUser: Observable<IStateUser> = this.store.select(selectorUsers)
   public $paginationOptionsSelector: Observable<IPaginationOptions> = this.store.select(selectorPaginationOptions)
 
   public userQueryParams: IUserQueryParams = {
@@ -30,7 +32,7 @@ export class UsersComponent implements OnInit {
 
   public pageIndex: number = 0
 
-  constructor(public dialogCreateOrUpdateUser: MatDialog, private store: Store<{}>) {}
+  constructor(public dialog: MatDialog, private store: Store<{}>, private snackbar: SnackbarService) {}
 
   ngOnInit(): void {
     this.triggerFetchUsers(this.userQueryParams)
@@ -42,21 +44,44 @@ export class UsersComponent implements OnInit {
     this.store.dispatch(ACTION_USERS({queryParams: this.userQueryParams}))
   }
 
-  handleClickCreatingOrUpdatingUser(userDetails?: any) {
-    const dialogCreateOrUpdateUserRef = this.dialogCreateOrUpdateUser.open(DialogComponent, {
+  handleClickCreatingOrUpdatingUser(userDetails?: IUser) {
+    const dialogRef = this.dialog.open(DialogComponent, {
       width: '100%',
       maxWidth: '450px',
       data: {
         title: !!userDetails ? 'Updating user' : 'Creating user',
-        content: CreateOrUpdateComponent,
+        component: CreateOrUpdateComponent,
         userDetails,
         userQueryParams: this.userQueryParams
       }
     })
 
-    dialogCreateOrUpdateUserRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === EnumRequestStatus.SUCCEED) {
         this.triggerFetchUsers(this.userQueryParams, this.pageIndex)
+      }
+    })
+  }
+
+  handleClickDeletingUser(userDetails: IUser) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        title: 'Deleting user',
+        message: `Are you sure you want to delete the user named ${userDetails?.name}?`,
+        hasActions: true
+      }
+    })
+    dialogRef.beforeClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.store.dispatch(ACTION_DELETE_USER({userId: userDetails.id!}))
+        this.$selectorsUser.pipe(take(2)).subscribe((selectorUsers: IStateUser) => {
+          if (selectorUsers.status === EnumRequestStatus.SUCCEED) {
+            this.snackbar.show({
+              message: 'User deleted'
+            })
+            this.triggerFetchUsers(this.userQueryParams, this.pageIndex)
+          }
+        })
       }
     })
   }

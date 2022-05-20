@@ -3,7 +3,8 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog'
 
 interface IDialogData {
   title: string
-  content: any
+  component: any
+  message: string
   hasActions: boolean
 }
 

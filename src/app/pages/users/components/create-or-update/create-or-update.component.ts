@@ -4,10 +4,12 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog'
 import {ACTION_CREATE_USER, ACTION_UPDATE_USER} from '../../../../store/user/actions'
 import {Store} from '@ngrx/store'
 import {Observable} from 'rxjs'
+import {take} from 'rxjs/operators'
 import {selectorUsers} from '../../../../store/user'
 import {EnumRequestStatus} from '../../../../enums'
 import {IStateUser} from '../../../../store/user/state'
 import {DialogComponent} from '../../../../components/dialog/dialog.component'
+import {SnackbarService} from '../../../../services/snackbar.service'
 
 @Component({
   selector: 'app-create-or-update',
@@ -19,7 +21,8 @@ export class CreateOrUpdateComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialogCreateOrUpdateUserRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private store: Store<{}>
+    private store: Store<{}>,
+    private snackbar: SnackbarService
   ) {}
 
   public formData: FormGroup = this.formBuilder.group({
@@ -53,19 +56,25 @@ export class CreateOrUpdateComponent implements OnInit {
 
   private userId!: number
 
-  public $selectorUsers: Observable<IStateUser> = this.store.select(selectorUsers)
+  public $selectorsUser: Observable<IStateUser> = this.store.select(selectorUsers)
 
   handleSubmitBtnCreateOrUpdate() {
     if (this.formData.valid) {
+      let message: string
       if (this.userId) {
+        message = 'User updated'
         const payload = {...{id: this.userId}, ...this.formData.value}
         this.store.dispatch(ACTION_UPDATE_USER({payload}))
       } else {
+        message = 'User created'
         this.store.dispatch(ACTION_CREATE_USER({payload: this.formData.value}))
       }
-      this.$selectorUsers.subscribe((selectorUsers: IStateUser) => {
+      this.$selectorsUser.pipe(take(2)).subscribe((selectorUsers: IStateUser) => {
         if (selectorUsers.status === EnumRequestStatus.SUCCEED) {
           this.dialogCreateOrUpdateUserRef.close(EnumRequestStatus.SUCCEED)
+          this.snackbar.show({
+            message
+          })
         }
       })
     }

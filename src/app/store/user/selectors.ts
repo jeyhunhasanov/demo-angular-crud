@@ -9,6 +9,8 @@ export const userState: MemoizedSelector<object, IStateUser> = createFeatureSele
 
 export const users: MemoizedSelector<object, IUser[]> = createSelector(userState, Getters.users)
 
+export const usersLoading: MemoizedSelector<object, boolean> = createSelector(userState, Getters.usersLoading)
+
 export const isLoading: MemoizedSelector<object, boolean> = createSelector(userState, Getters.isLoading)
 
 export const error: MemoizedSelector<object, any> = createSelector(userState, Getters.error)
@@ -17,13 +19,15 @@ export const status: MemoizedSelector<object, string> = createSelector(userState
 
 export const selectorUsers = createSelector(
   users,
+  usersLoading,
   isLoading,
   error,
   status,
-  (users: IUser[], isLoading: boolean, error: any, status: string) => ({
+  (users: IUser[], usersLoading: boolean, isLoading: boolean, error: any, status: string) => ({
     users,
-    error,
+    usersLoading,
     isLoading,
+    error,
     status
   })
 )

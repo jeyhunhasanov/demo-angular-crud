@@ -5,12 +5,13 @@ import {catchError, map, mergeMap} from 'rxjs/operators'
 
 import {ApiServices} from '../../services/api.service'
 import {
-  ACTION_CREATE_OR_UPDATE_USER_SUCCEED,
   ACTION_CREATE_USER,
+  ACTION_DELETE_USER,
   ACTION_UPDATE_USER,
+  ACTION_USER_OPERATIONS_SUCCEED,
   ACTION_USERS,
-  ACTION_USERS_FAILED,
-  ACTION_USERS_SUCCEED
+  ACTION_USERS_LOAD_FAILED,
+  ACTION_USERS_LOAD_SUCCEED
 } from './actions'
 
 @Injectable()
@@ -21,9 +22,10 @@ export class Effects {
     this.actions.pipe(
       ofType(ACTION_USERS),
       mergeMap((action: any) => {
-        return this.apiService.get(`/users`, {params: action.queryParams}).pipe(
-          map((users) => ACTION_USERS_SUCCEED({users})),
-          catchError((error) => of(ACTION_USERS_FAILED({error: error.message})))
+        const params = action.queryParams
+        return this.apiService.get(`/users`, {params}).pipe(
+          map((users) => ACTION_USERS_LOAD_SUCCEED({users})),
+          catchError((error) => of(ACTION_USERS_LOAD_FAILED({error: error.message})))
         )
       })
     )
@@ -33,9 +35,8 @@ export class Effects {
     this.actions.pipe(
       ofType(ACTION_CREATE_USER),
       mergeMap((action: any) => {
-        return this.apiService
-          .post(`/users`, action.payload)
-          .pipe(map((user) => ACTION_CREATE_OR_UPDATE_USER_SUCCEED()))
+        const payload = action.payload
+        return this.apiService.post(`/users`, payload).pipe(map(() => ACTION_USER_OPERATIONS_SUCCEED()))
       })
     )
   )
@@ -45,7 +46,17 @@ export class Effects {
       ofType(ACTION_UPDATE_USER),
       mergeMap((action: any) => {
         const {id, ...payload} = action.payload
-        return this.apiService.put(`/users/${id}`, payload).pipe(map(() => ACTION_CREATE_OR_UPDATE_USER_SUCCEED()))
+        return this.apiService.put(`/users/${id}`, payload).pipe(map(() => ACTION_USER_OPERATIONS_SUCCEED()))
+      })
+    )
+  )
+
+  deleteUser = createEffect(() =>
+    this.actions.pipe(
+      ofType(ACTION_DELETE_USER),
+      mergeMap((action: any) => {
+        const userId = action.userId
+        return this.apiService.delete(`/users/${userId}`).pipe(map(() => ACTION_USER_OPERATIONS_SUCCEED()))
       })
     )
   )

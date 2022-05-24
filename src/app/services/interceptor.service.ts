@@ -21,15 +21,16 @@ export class InterceptorService implements HttpInterceptor {
       request = request.clone({setHeaders: {'Content-Type': 'application/json'}})
     }
 
-    const accessToken = 'Bearer eaf99e36bf47f46ffb7506f27f7e81386578b59e0e249a2f8cace7bfcaa98adc'
-    request = request.clone({setHeaders: {Authorization: accessToken}})
+    const accessToken =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjhiNTA5YjJlNDAyMTIzMTMxMDdhMDkiLCJpYXQiOjE2NTMyOTc1MjF9.LUrDK6gmwErCbvHu00bqq8C8pDBYKnc37r-PgcWqWZA'
+    request = request.clone({setHeaders: {'auth-token': accessToken}})
 
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           const pageIndex = Number(event.headers.get('X-Pagination-Page'))
           const pageSize = Number(event.headers.get('X-Pagination-Limit'))
-          const length = Number(event.headers.get('X-Pagination-Total'))
+          const length = Number(event.headers.get('X-Pagination-Count'))
           if (pageIndex && pageSize && length) {
             const paginationOptions: IPaginationOptions = {
               pageSize,

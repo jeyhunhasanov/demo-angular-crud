@@ -13,4 +13,4 @@ export const ACTION_CREATE_USER = createAction('FETCH_CREATE_USER', props<{paylo
 
 export const ACTION_UPDATE_USER = createAction('FETCH_UPDATE_USER', props<{payload: IUserQueryParams}>())
 
-export const ACTION_DELETE_USER = createAction('FETCH_DELETE_USER', props<{userId: number}>())
+export const ACTION_DELETE_USER = createAction('FETCH_DELETE_USER', props<{userId: string}>())

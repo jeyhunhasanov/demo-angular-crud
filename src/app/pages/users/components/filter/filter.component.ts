@@ -2,6 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core'
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms'
 // Models
 import {IUserQueryParams} from '../../../../models/User'
+// Static
+import {GENDER, STATUS} from '../../../../static'
 
 @Component({
   selector: 'app-filter',
@@ -20,35 +22,9 @@ export class FilterComponent implements OnInit {
     status: ['']
   })
 
-  public buttonsGender: any = [
-    {
-      text: 'All',
-      value: ''
-    },
-    {
-      text: 'Male',
-      value: 'male'
-    },
-    {
-      text: 'Female',
-      value: 'female'
-    }
-  ]
+  public buttonsGender: any = GENDER
 
-  public buttonsStatus: any = [
-    {
-      text: 'All',
-      value: ''
-    },
-    {
-      text: 'Active',
-      value: 'active'
-    },
-    {
-      text: 'Inactive',
-      value: 'inactive'
-    }
-  ]
+  public buttonsStatus: any = STATUS
 
   // endregion
 

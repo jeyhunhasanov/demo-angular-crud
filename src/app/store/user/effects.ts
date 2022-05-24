@@ -23,7 +23,7 @@ export class Effects {
       ofType(ACTION_USERS),
       mergeMap((action: any) => {
         const params = action.queryParams
-        return this.apiService.get(`/users`, {params}).pipe(
+        return this.apiService.get(`/user/getAll`, {params}).pipe(
           map((users) => ACTION_USERS_LOAD_SUCCEED({users})),
           catchError((error) => of(ACTION_USERS_LOAD_FAILED({error: error.message})))
         )
@@ -36,7 +36,7 @@ export class Effects {
       ofType(ACTION_CREATE_USER),
       mergeMap((action: any) => {
         const payload = action.payload
-        return this.apiService.post(`/users`, payload).pipe(map(() => ACTION_USER_OPERATIONS_SUCCEED()))
+        return this.apiService.post(`/user/create`, payload).pipe(map(() => ACTION_USER_OPERATIONS_SUCCEED()))
       })
     )
   )
@@ -45,8 +45,8 @@ export class Effects {
     this.actions.pipe(
       ofType(ACTION_UPDATE_USER),
       mergeMap((action: any) => {
-        const {id, ...payload} = action.payload
-        return this.apiService.put(`/users/${id}`, payload).pipe(map(() => ACTION_USER_OPERATIONS_SUCCEED()))
+        const payload = action.payload
+        return this.apiService.put(`/user/update`, payload).pipe(map(() => ACTION_USER_OPERATIONS_SUCCEED()))
       })
     )
   )
@@ -56,7 +56,9 @@ export class Effects {
       ofType(ACTION_DELETE_USER),
       mergeMap((action: any) => {
         const userId = action.userId
-        return this.apiService.delete(`/users/${userId}`).pipe(map(() => ACTION_USER_OPERATIONS_SUCCEED()))
+        return this.apiService
+          .delete(`/user/delete`, {body: {id: userId}})
+          .pipe(map(() => ACTION_USER_OPERATIONS_SUCCEED()))
       })
     )
   )

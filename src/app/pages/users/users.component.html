@@ -49,13 +49,15 @@
           <!-- Gender Column -->
           <ng-container matColumnDef="gender">
             <th *matHeaderCellDef mat-header-cell>Gender</th>
-            <td *matCellDef="let userItem" mat-cell> {{userItem.gender}} </td>
+            <td *matCellDef="let userItem"
+                mat-cell> {{userItem.gender === enumGenderType.MALE ? 'Male' : 'Female'}} </td>
           </ng-container>
 
           <!-- Status Column -->
           <ng-container matColumnDef="status">
             <th *matHeaderCellDef mat-header-cell>Status</th>
-            <td *matCellDef="let userItem" mat-cell> {{userItem.status}} </td>
+            <td *matCellDef="let userItem"
+                mat-cell> {{userItem.status === enumStatusType.ACTIVE ? 'Active' : 'Inactive'}} </td>
           </ng-container>
 
           <!-- Status Column -->

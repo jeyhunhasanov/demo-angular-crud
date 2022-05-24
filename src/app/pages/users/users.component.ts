@@ -7,7 +7,7 @@ import {take} from 'rxjs/operators'
 import {DialogComponent} from '../../components/dialog/dialog.component'
 import {CreateOrUpdateComponent} from './components/create-or-update/create-or-update.component'
 // Enums
-import {EnumRequestStatus} from '../../enums'
+import {EnumGenderType, EnumRequestStatus, EnumStatusType} from '../../enums'
 // Models
 import {IPaginationOptions} from '../../models/General'
 import {IUser, IUserQueryParams} from '../../models/User'
@@ -25,7 +25,8 @@ import {selectorPaginationOptions} from '../../store/pagination'
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  constructor(public dialog: MatDialog, private store: Store<{}>, private snackbar: SnackbarService) {}
+  constructor(public dialog: MatDialog, private store: Store<{}>, private snackbar: SnackbarService) {
+  }
 
   // region Data
 
@@ -39,6 +40,10 @@ export class UsersComponent implements OnInit {
   }
 
   public pageIndex: number = 0
+
+  public enumGenderType: any = EnumGenderType
+
+  public enumStatusType: any = EnumStatusType
 
   // endregion
 

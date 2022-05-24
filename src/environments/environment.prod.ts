@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseURL: 'https://gorest.co.in/public/v2'
+  baseURL: 'https://demo-expressjs-mongodb.herokuapp.com/api'
 }

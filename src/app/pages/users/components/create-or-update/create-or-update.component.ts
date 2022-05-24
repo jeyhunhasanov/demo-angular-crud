@@ -14,6 +14,8 @@ import {SnackbarService} from '../../../../services/snackbar.service'
 import {ACTION_CREATE_USER, ACTION_UPDATE_USER} from '../../../../store/user/actions'
 import {selectorUsers} from '../../../../store/user'
 import {IStateUser} from '../../../../store/user/state'
+// Static
+import {GENDER, STATUS} from '../../../../static'
 
 @Component({
   selector: 'app-create-or-update',
@@ -38,27 +40,9 @@ export class CreateOrUpdateComponent implements OnInit {
     status: [null, [Validators.required]]
   })
 
-  public buttonsGender: any = [
-    {
-      text: 'Male',
-      value: 'male'
-    },
-    {
-      text: 'Female',
-      value: 'female'
-    }
-  ]
+  public buttonsGender: any = GENDER.filter((genderItem) => genderItem.value !== '')
 
-  public buttonsStatus: any = [
-    {
-      text: 'Active',
-      value: 'active'
-    },
-    {
-      text: 'Inactive',
-      value: 'inactive'
-    }
-  ]
+  public buttonsStatus: any = STATUS.filter((statusItem) => statusItem.value !== '')
 
   private userId!: number
 

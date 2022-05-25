@@ -9,7 +9,7 @@ export const GENDER = [
   },
   {
     text: 'Female',
-    value: 0
+    value: 2
   }
 ]
 
@@ -24,6 +24,6 @@ export const STATUS = [
   },
   {
     text: 'Inactive',
-    value: 0
+    value: 2
   }
 ]

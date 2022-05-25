@@ -6,10 +6,10 @@ export enum EnumRequestStatus {
 
 export enum EnumGenderType {
   MALE = 1,
-  FEMALE = 0
+  FEMALE = 2
 }
 
 export enum EnumStatusType {
   ACTIVE = 1,
-  PASSIVE = 0
+  INACTIVE = 2
 }
